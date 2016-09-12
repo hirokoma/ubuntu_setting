@@ -1,0 +1,112 @@
+# firewall
+sudo apt install ufw
+sudo ufw default deny
+sudo ufw enable
+sudo reboot
+
+# tcp
+sudo ufw allow 8000
+
+# ssh
+sudo ufw allow 22222
+sudo ufw limit 22222
+sudo vi /etc/ssh/sshd_config
+# update
+Port 22 -> 22222
+
+sudo vi /etc/services
+# update
+22 -> 22222
+
+sudo reboot
+
+# develop tools
+sudo apt-get install unzip nkf ssh vim git
+sudo apt-get install gcc g++ make openssl libssl-dev libbz2-dev libreadline-dev libsqlite3-dev
+sudo apt-get install build-essential
+sudo apt-get update
+sudo apt-get upgrade
+
+# vimrc
+vi ~/.vimrc
+# add (文字ボケ対策)
+set encoding=utf-8
+set fileencodings=iso-2022-jp,euc-jp,sjis,utf-8
+set fileformats=unix,dos,mac
+
+# pyenv
+git clone git://github.com/yyuu/pyenv.git ~/.pyenv
+
+vi ~/.bashrc
+
+export PYENV_ROOT="$HOME/.pyenv"
+export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init -)"
+
+source ~/.bashrc
+
+pyenv install --list
+pyenv install 3.5.2
+pyenv global 3.5.2
+
+python --version
+
+# pip
+pip install --upgrade pip
+pip install Django==1.9.0
+
+# postgresql
+sudo apt-get install postgresql
+sudo apt-get install libpq-dev
+sudo apt-get install python-psycopg2
+pip install psycopg2
+
+sudo vi /etc/profile.d/lang.sh
+# add
+export LANGUAGE="en_US.UTF-8"
+export LANG="en_US.UTF-8"
+export LC_ALL="en_US.UTF-8"
+
+sudo reboot
+
+sudo su - postgres
+psql
+create role XXX WITH password 'testpasswd';
+alter role 'XXX' with login;
+alter role 'XXX' with createdb;
+create database YYY with owner=XXX encoding='UTF-8' lc_collate='en_US.utf8' lc_ctype='en_US.utf8' template template0;
+
+
+# rbenv
+git clone https://github.com/sstephenson/rbenv.git ~/.rbenv
+git clone https://github.com/sstephenson/ruby-build.git ~/.rbenv/plugins/ruby-build
+# add
+vi ~/.bashrc
+export RBENV_ROOT="$HOME/.rbenv"
+export PATH="$RBENV_ROOT/bin:$PATH"
+eval "$(rbenv init -)"
+
+source ~/.bashrc
+
+rbenv install --list
+rbenv install 2.2.2
+rbenv global 2.2.2
+
+ruby --version
+
+# rmate (atomで, ssh経由のファイルを直接編集できる)
+gem install rmate
+
+# mecab
+sudo apt-get install mecab libmecab-dev mecab-ipadic
+sudo apt-get install mecab-ipadic-utf8
+sudo apt-get install python-mecab
+pip install mecab-python3
+
+# nlp
+pip install --upgrade pip
+pip install -U cython
+pip install -U numpy
+pip install -U scipy
+pip install -U scikit-learn
+pip install -U gensim
